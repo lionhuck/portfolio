@@ -1,7 +1,5 @@
 "use client"
 
-import type React from "react"
-
 import { useState, useRef, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -28,13 +26,6 @@ export default function AIChatSection() {
   const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }
-
-  useEffect(() => {
-    scrollToBottom()
-  }, [messages])
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return
@@ -49,18 +40,37 @@ export default function AIChatSection() {
     setInputValue("")
     setIsLoading(true)
 
-    // TODO: Replace this with your actual AI integration
-    // This is a placeholder response
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: inputValue }),
+      })
+
+      const data = await res.json()
+
+      const replyText =
+        typeof data.reply === "string"
+          ? data.reply
+          : data.reply?.content || "No pude generar una respuesta 😅"
+
       const assistantMessage: Message = {
         role: "assistant",
-        content:
-          "This is where your pre-trained AI will respond! Connect your AI model here to provide personalized answers about León's experience, skills, and projects.",
+        content: replyText,
+        timestamp: new Date(),
+      }
+
+      setMessages((prev) => [...prev, assistantMessage])
+    } catch (err) {
+      const assistantMessage: Message = {
+        role: "assistant",
+        content: "Hubo un problema al conectarme con la IA 😕",
         timestamp: new Date(),
       }
       setMessages((prev) => [...prev, assistantMessage])
+    } finally {
       setIsLoading(false)
-    }, 1000)
+    }
   }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -75,7 +85,6 @@ export default function AIChatSection() {
       id="chat"
       className="py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden"
     >
-      {/* Background effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-blue-600/10 via-transparent to-transparent"></div>
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:100px_100px]"></div>
 
@@ -88,13 +97,13 @@ export default function AIChatSection() {
             </div>
             <h2 className="text-5xl font-black text-white mb-4">{t("chat.title")}</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-teal-600 mx-auto rounded-full mb-4"></div>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">{t("chat.description")}</p>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">{t("IA Personal - Hugging Face + Deep Seek")}</p>
           </div>
-
           <Card className="border-0 shadow-2xl bg-white/5 backdrop-blur-xl overflow-hidden">
             <CardContent className="p-0">
+
               {/* Chat messages */}
-              <div className="h-[500px] overflow-y-auto p-6 space-y-4">
+              <div className="h-[400px] overflow-y-auto p-6 space-y-4">
                 {messages.map((message, index) => (
                   <div
                     key={index}
@@ -107,11 +116,7 @@ export default function AIChatSection() {
                           : "bg-gradient-to-r from-purple-600 to-pink-600"
                       }`}
                     >
-                      {message.role === "user" ? (
-                        <User className="w-5 h-5 text-white" />
-                      ) : (
-                        <Bot className="w-5 h-5 text-white" />
-                      )}
+                      {message.role === "user" ? <User className="w-5 h-5 text-white" /> : <Bot className="w-5 h-5 text-white" />}
                     </div>
                     <div
                       className={`max-w-[80%] p-4 rounded-2xl ${
@@ -127,6 +132,7 @@ export default function AIChatSection() {
                     </div>
                   </div>
                 ))}
+
                 {isLoading && (
                   <div className="flex gap-3">
                     <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-gradient-to-r from-purple-600 to-pink-600">
@@ -141,7 +147,31 @@ export default function AIChatSection() {
                     </div>
                   </div>
                 )}
+
                 <div ref={messagesEndRef} />
+              </div>
+
+              {/* Quick questions buttons - just above input */}
+              <div className="flex flex-wrap gap-2 p-4 border-t border-white/10 bg-white/5">
+                {[
+                  "Cuentame sobre ti",
+                  "Estudios",
+                  "Proyectos destacados",
+                  "Dato curioso",
+                  "Intereses musicales",
+                ].map((q, i) => (
+                  <Button
+                    key={i}
+                    size="sm"
+                    variant="outline"
+                    onClick={() => {
+                      setInputValue(q)
+                      handleSendMessage()
+                    }}
+                  >
+                    {q}
+                  </Button>
+                ))}
               </div>
 
               {/* Input area */}
@@ -165,11 +195,12 @@ export default function AIChatSection() {
                 </div>
                 <p className="text-xs text-gray-500 mt-3 flex items-center gap-1">
                   <Sparkles className="w-3 h-3" />
-                  {t("chat.poweredBy")}
+                  {t("poweredBy DeepSeek-V3-0324 on Hugging Face")}
                 </p>
               </div>
             </CardContent>
           </Card>
+
         </div>
       </div>
     </section>
