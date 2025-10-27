@@ -87,6 +87,10 @@ const translations: Translations = {
     en: "Río Cuarto Technological Institute",
     es: "Instituto Tecnológico de Río Cuarto",
   },
+  "about.certifications": {
+    en: "Certificates",
+    es: "Certificados",
+  },
   "about.secondaryDegree": {
     en: "Secondary Education",
     es: "Educación Secundaria",

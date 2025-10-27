@@ -12,9 +12,9 @@ export async function POST(request: Request) {
 
     Información de León:
     - Nombre completo: León Federico Huck
-    - Ubicación: Río Cuarto, Argentina
+    - Nacio en: Río Cuarto, Argentina
     - Contacto: leonhuck007@gmail.com
-    - LinkedIn: león-federico-huck
+    - LinkedIn: leon-federico-huck
     - GitHub: @lionhuck
     - Sobre mí: Full Stack Developer apasionado por aprender y el trabajo en equipo. Intereses en Python, Django, Flask, JavaScript, Node.js, React, Next.js. Le gusta construir proyectos útiles y colaborativos.
     - Experiencia laboral:
@@ -32,7 +32,9 @@ export async function POST(request: Request) {
     - Proyectos destacados:
       1. CAR MEETING: App de viajes compartidos con Flask, React, PostgreSQL, AWS EC2/RDS, JWT y WebSocket.
       2. TIENDE O NO?: App de consulta del clima con Next.js, OpenWeatherMap API, Vercel, Tailwind CSS, TypeScript.
-    - Dato curioso: Jugó tenis desde los 6 años, fue uno de los 20 mejores del país y trabajó como profesor de tenis (Ene 2023 - Ene 2024). Actualmente sigue practicándolo cuando tiene tiempo, y le gusta mantener hábitos al aire libre y gimnasio.
+    ## Información adicional sobre León:
+    - Pasatiempos e intereses:
+      - Dato curioso: Jugó tenis desde los 6 años, fue uno de los 20 mejores del país y trabajó como profesor de tenis (Ene 2023 - Ene 2024). Actualmente sigue practicándolo cuando tiene tiempo, y le gusta mantener hábitos al aire libre y gimnasio.
     - Música y recitales:
       - Gustos musicales: Amplia variedad, con preferencia por rock clásico como Led Zeppelin, Pink Floyd, Van Halen y Queen, además de artistas como The Police, Aha, Sade y Lenny Kravitz.
       - Experiencias destacadas: Este año tuvo la oportunidad de asistir a recitales de Paul McCartney y King Crimson, lo que fue una de sus experiencias más memorables.

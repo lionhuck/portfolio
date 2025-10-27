@@ -129,6 +129,48 @@ export default function AboutSection() {
                       </div>
                     </div>
                   </div>
+                  {/* Certifications */}
+                  <div className="mt-10 pt-6 border-t-2 border-gray-200">
+                    <h4 className="font-bold text-gray-900 mb-6 text-lg flex items-center gap-2">
+                      <GraduationCap className="w-5 h-5 text-blue-600" />
+                      {t("about.certifications") || "Certificaciones"}
+                    </h4>
+
+                    <div className="flex flex-col sm:flex-row gap-6 items-center">
+                      {/* Certificate Preview */}
+                      <div className="relative w-full sm:w-1/2 aspect-video rounded-xl overflow-hidden border border-gray-200 shadow-md hover:shadow-lg transition-all duration-300 group">
+                        <a href="https://coursera.org/verify/9YU5AB9KFMZO" target="_blank" rel="noopener noreferrer">
+                          <img
+                            src="/certificates/coursera.jpg"
+                            alt="Build AI Apps with ChatGPT, Dall-E, and GPT-4 Certificate"
+                            className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-700 ease-out"
+                          />
+                        </a>
+                      </div>
+
+                      {/* Certificate Details */}
+                      <div className="flex-1 space-y-2 text-gray-700">
+                        <h5 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
+                          Build AI Apps with ChatGPT, Dall-E, and GPT-4
+                        </h5>
+                        <p className="font-semibold text-gray-800">Scrimba / Coursera</p>
+                        <p className="text-sm text-gray-500">Completado el 13 de octubre de 2025</p>
+                        <p className="text-sm text-gray-600">
+                          Curso enfocado en desarrollo de aplicaciones con APIs de OpenAI, ingeniería de prompts, despliegue web
+                          y buenas prácticas en IA generativa.
+                        </p>
+                        <a
+                          href="https://coursera.org/verify/9YU5AB9KFMZO"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-block mt-2 text-blue-600 font-semibold hover:underline"
+                        >
+                          Verificar certificado →
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
                 </CardContent>
               </Card>
             </div>

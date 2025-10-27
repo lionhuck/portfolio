@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { MapPin, Mail, ArrowDown } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
+import Image from "next/image"
 
 export default function HeroSection() {
   const { t } = useLanguage()
@@ -69,7 +70,7 @@ export default function HeroSection() {
               {/* Location */}
               <div className="flex items-center gap-2 text-gray-400">
                 <MapPin className="w-5 h-5 text-teal-400" />
-                <span className="font-medium">Río Cuarto, Argentina</span>
+                <span className="font-medium">Córdoba, Argentina</span>
               </div>
 
               {/* CTA Buttons */}
@@ -105,22 +106,13 @@ export default function HeroSection() {
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-teal-600 rounded-2xl transform rotate-6 opacity-20"></div>
                 <div className="relative w-full h-full bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl overflow-hidden border-4 border-slate-700 shadow-2xl">
                   {/* Placeholder for professional photo */}
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-600/10 to-teal-600/10">
-                    <div className="text-center">
-                      <div className="w-32 h-32 mx-auto mb-4 bg-gradient-to-br from-blue-600 to-teal-600 rounded-full flex items-center justify-center text-6xl font-black text-white shadow-xl">
-                        LH
-                      </div>
-                      <p className="text-gray-400 font-medium text-sm">{t("hero.photoPlaceholder")}</p>
-                    </div>
-                  </div>
-                  {/* Replace the div above with this when you have your photo: */}
-                  {/* <Image
-                    src="/your-professional-photo.jpg"
+                  <Image
+                    src="/profile/profile.jpeg"
                     alt="León Federico Huck"
                     fill
                     className="object-cover"
                     priority
-                  /> */}
+                  />
                 </div>
               </div>
             </div>

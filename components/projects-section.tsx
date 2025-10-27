@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Github, ExternalLink, Code, Monitor } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
+import Image from "next/image"
 
 export default function ProjectsSection() {
   const { t, language } = useLanguage()
@@ -24,6 +25,8 @@ export default function ProjectsSection() {
       },
       gradient: "from-blue-700 to-teal-700",
       bgDark: "from-slate-800 to-slate-900",
+      image: "/projects/car-meeting.png",
+
     },
     {
       title: "TIENDE O NO?",
@@ -39,13 +42,15 @@ export default function ProjectsSection() {
       },
       gradient: "from-green-700 to-teal-700",
       bgDark: "from-slate-800 to-slate-900",
+      image: "/projects/tiende-o-no.png",
     },
   ]
 
-  return (
+return (
     <section id="projects" className="py-20 bg-gradient-to-br from-slate-900 to-gray-900">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
+          {/* Título */}
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600/20 to-teal-600/20 px-4 py-2 rounded-full mb-4 border border-blue-500/30">
               <Code className="w-5 h-5 text-blue-400" />
@@ -55,6 +60,7 @@ export default function ProjectsSection() {
             <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-teal-600 mx-auto rounded-full"></div>
           </div>
 
+          {/* Lista de proyectos */}
           <div className="space-y-12">
             {projects.map((project, index) => (
               <Card
@@ -63,28 +69,23 @@ export default function ProjectsSection() {
               >
                 <CardContent className="p-0">
                   <div className="grid md:grid-cols-2 gap-0">
-                    {/* Project Preview - Placeholder for Screenshot */}
+                    {/* Imagen del proyecto */}
                     <div className="relative h-64 md:h-full bg-gradient-to-br from-slate-700 to-slate-800 overflow-hidden group">
-                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-teal-500/10"></div>
-
-                      {/* Placeholder for your screenshot */}
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-center p-8">
-                          <Monitor className="w-16 h-16 text-gray-500 mx-auto mb-4" />
-                          <p className="text-gray-400 text-sm font-medium">
-                            {language === "en"
-                              ? "Add your project screenshot here"
-                              : "Agrega tu captura de pantalla aquí"}
-                          </p>
-                          <p className="text-gray-500 text-xs mt-2">
-                            {language === "en"
-                              ? "Replace with an image from your project"
-                              : "Reemplaza con una imagen de tu proyecto"}
-                          </p>
+                      {project.image ? (
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          fill
+                          className="object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
+                          priority={index === 0}
+                        />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <Monitor className="w-16 h-16 text-gray-500" />
                         </div>
-                      </div>
+                      )}
 
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-70"></div>
                       <div
                         className={`absolute top-4 right-4 px-4 py-2 bg-gradient-to-r ${project.gradient} rounded-full shadow-lg`}
                       >
@@ -92,7 +93,7 @@ export default function ProjectsSection() {
                       </div>
                     </div>
 
-                    {/* Project Info */}
+                    {/* Info del proyecto */}
                     <div className="p-8 md:p-10 flex flex-col justify-center">
                       <div className="mb-6">
                         <h3
