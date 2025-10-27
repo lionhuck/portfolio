@@ -151,21 +151,18 @@ export default function AboutSection() {
                       {/* Certificate Details */}
                       <div className="flex-1 space-y-2 text-gray-700">
                         <h5 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
-                          Build AI Apps with ChatGPT, Dall-E, and GPT-4
+                          {t("about.certificate.title")}
                         </h5>
-                        <p className="font-semibold text-gray-800">Scrimba / Coursera</p>
-                        <p className="text-sm text-gray-500">Completado el 13 de octubre de 2025</p>
-                        <p className="text-sm text-gray-600">
-                          Curso enfocado en desarrollo de aplicaciones con APIs de OpenAI, ingeniería de prompts, despliegue web
-                          y buenas prácticas en IA generativa.
-                        </p>
+                        <p className="font-semibold text-gray-800">{t("about.certificate.platform")}</p>
+                        <p className="text-sm text-gray-500">{t("about.certificate.date")}</p>
+                        <p className="text-sm text-gray-600">{t("about.certificate.description")}</p>
                         <a
                           href="https://coursera.org/verify/9YU5AB9KFMZO"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-block mt-2 text-blue-600 font-semibold hover:underline"
                         >
-                          Verificar certificado →
+                          {t("about.certificate.verify")} →
                         </a>
                       </div>
                     </div>

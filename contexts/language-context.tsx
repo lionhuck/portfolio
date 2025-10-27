@@ -87,6 +87,26 @@ const translations: Translations = {
     en: "Río Cuarto Technological Institute",
     es: "Instituto Tecnológico de Río Cuarto",
   },
+  "about.certificate.title": {
+  "en": "Build AI Apps with ChatGPT, Dall-E, and GPT-4",
+  "es": "Construir aplicaciones de IA con ChatGPT, Dall-E y GPT-4"
+  },
+  "about.certificate.platform": {
+    "en": "Scrimba / Coursera",
+    "es": "Scrimba / Coursera"
+  },
+  "about.certificate.date": {
+    "en": "Completed on October 13, 2025",
+    "es": "Completado el 13 de octubre de 2025"
+  },
+  "about.certificate.description": {
+    "en": "Course focused on developing applications with OpenAI APIs, prompt engineering, web deployment, and best practices in generative AI.",
+    "es": "Curso enfocado en desarrollo de aplicaciones con APIs de OpenAI, ingeniería de prompts, despliegue web y buenas prácticas en IA generativa."
+  },
+  "about.certificate.verify": {
+    "en": "Verify certificate",
+    "es": "Verificar certificado"
+  },
   "about.certifications": {
     en: "Certificates",
     es: "Certificados",
