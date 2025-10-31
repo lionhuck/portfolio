@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Send, Bot, User, Sparkles } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
+import ReactMarkdown from "react-markdown"
 
 interface Message {
   role: "user" | "assistant"
@@ -14,7 +15,7 @@ interface Message {
 }
 
 export default function AIChatSection() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
@@ -25,7 +26,6 @@ export default function AIChatSection() {
   const [inputValue, setInputValue] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return
@@ -44,7 +44,7 @@ export default function AIChatSection() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: inputValue }),
+        body: JSON.stringify({ message: inputValue, language }),
       })
 
       const data = await res.json()
@@ -97,17 +97,21 @@ export default function AIChatSection() {
             </div>
             <h2 className="text-5xl font-black text-white mb-4">{t("chat.title")}</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-teal-600 mx-auto rounded-full mb-4"></div>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">{t("IA Personal - Hugging Face + Deep Seek")}</p>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              {t("IA Personal - Hugging Face + Deep Seek")}
+            </p>
           </div>
+
           <Card className="border-0 shadow-2xl bg-white/5 backdrop-blur-xl overflow-hidden">
             <CardContent className="p-0">
-
               {/* Chat messages */}
               <div className="h-[400px] overflow-y-auto p-6 space-y-4">
                 {messages.map((message, index) => (
                   <div
                     key={index}
-                    className={`flex gap-3 ${message.role === "user" ? "flex-row-reverse" : "flex-row"}`}
+                    className={`flex gap-3 ${
+                      message.role === "user" ? "flex-row-reverse" : "flex-row"
+                    }`}
                   >
                     <div
                       className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
@@ -116,7 +120,11 @@ export default function AIChatSection() {
                           : "bg-gradient-to-r from-purple-600 to-pink-600"
                       }`}
                     >
-                      {message.role === "user" ? <User className="w-5 h-5 text-white" /> : <Bot className="w-5 h-5 text-white" />}
+                      {message.role === "user" ? (
+                        <User className="w-5 h-5 text-white" />
+                      ) : (
+                        <Bot className="w-5 h-5 text-white" />
+                      )}
                     </div>
                     <div
                       className={`max-w-[80%] p-4 rounded-2xl ${
@@ -125,9 +133,59 @@ export default function AIChatSection() {
                           : "bg-white/10 backdrop-blur-sm text-gray-100 border border-white/10"
                       }`}
                     >
-                      <p className="text-sm leading-relaxed">{message.content}</p>
-                      <p className={`text-xs mt-2 ${message.role === "user" ? "text-blue-100" : "text-gray-400"}`}>
-                        {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                  {message.role === "assistant" ? (
+                    <ReactMarkdown
+                      components={{
+                        p: ({ node, ...props }) => (
+                          <p {...props} className="text-sm leading-relaxed prose prose-invert max-w-none" />
+                        ),
+                        strong: ({ node, ...props }) => (
+                          <strong {...props} className="font-semibold text-white" />
+                        ),
+                        em: ({ node, ...props }) => (
+                          <em {...props} className="italic text-gray-300" />
+                        ),
+                        code: ({ node, inline, ...props }) =>
+                          inline ? (
+                            <code
+                              {...props}
+                              className="bg-slate-800/60 rounded px-1 py-0.5 text-blue-300 text-xs"
+                            />
+                          ) : (
+                            <pre className="bg-slate-800/60 rounded-lg p-3 overflow-x-auto text-sm text-blue-200">
+                              <code {...props} />
+                            </pre>
+                          ),
+                        ul: ({ node, ...props }) => (
+                          <ul {...props} className="list-disc list-inside text-sm leading-relaxed" />
+                        ),
+                        ol: ({ node, ...props }) => (
+                          <ol {...props} className="list-decimal list-inside text-sm leading-relaxed" />
+                        ),
+                        a: ({ node, ...props }) => (
+                          <a
+                            {...props}
+                            className="text-blue-400 underline hover:text-blue-300 transition"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          />
+                        ),
+                      }}
+                    >
+                      {message.content}
+                    </ReactMarkdown>
+                  ) : (
+                    <p className="text-sm leading-relaxed">{message.content}</p>
+                  )}
+                      <p
+                        className={`text-xs mt-2 ${
+                          message.role === "user" ? "text-blue-100" : "text-gray-400"
+                        }`}
+                      >
+                        {message.timestamp.toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
                       </p>
                     </div>
                   </div>
@@ -147,18 +205,17 @@ export default function AIChatSection() {
                     </div>
                   </div>
                 )}
-
                 <div ref={messagesEndRef} />
               </div>
 
-              {/* Quick questions buttons - just above input */}
+              {/* Quick questions */}
               <div className="flex flex-wrap gap-2 p-4 border-t border-white/10 bg-white/5">
                 {[
-                  "Cuentame sobre ti",
-                  "Estudios",
-                  "Proyectos destacados",
-                  "Dato curioso",
-                  "Intereses musicales",
+                  t("chat.quickQuestions.about"),
+                  t("chat.quickQuestions.studies"),
+                  t("chat.quickQuestions.projects"),
+                  t("chat.quickQuestions.funFact"),
+                  t("chat.quickQuestions.music"),
                 ].map((q, i) => (
                   <Button
                     key={i}
@@ -193,14 +250,9 @@ export default function AIChatSection() {
                     <Send className="w-5 h-5" />
                   </Button>
                 </div>
-                <p className="text-xs text-gray-500 mt-3 flex items-center gap-1">
-                  <Sparkles className="w-3 h-3" />
-                  {t("poweredBy DeepSeek-V3-0324 on Hugging Face")}
-                </p>
               </div>
             </CardContent>
           </Card>
-
         </div>
       </div>
     </section>

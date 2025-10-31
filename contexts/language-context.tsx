@@ -181,8 +181,27 @@ const translations: Translations = {
     en: "Tools & DevOps",
     es: "Herramientas y DevOps",
   },
-
-  // AI Chat Section
+  "chat.quickQuestions.about": {
+    en: "Tell me about yourself",
+    es: "Háblame sobre ti",
+  },
+  "chat.quickQuestions.studies": {
+    en: "What is your educational background?",
+    es: "¿Cuál es tu formación académica?",
+  },
+  "chat.quickQuestions.projects": {
+    en: "Can you describe one of your projects?",
+    es: "¿Puedes describir uno de tus proyectos?",
+  },
+  "chat.quickQuestions.funFact": {
+    en: "Tell me a fun fact about you",
+    es: "Cuéntame un dato curioso sobre ti",
+  },
+  "chat.quickQuestions.music": {
+    en: "What kind of music do you like?",
+    es: "¿Qué tipo de música te gusta?",
+  },
+  // 💬 AI Chat Section
   "chat.title": {
     en: "Ask Me Anything",
     es: "Pregúntame lo que quieras",
@@ -200,7 +219,7 @@ const translations: Translations = {
     es: "Enviar",
   },
   "chat.welcome": {
-    en: "Hi! I'm León's AI assistant. Ask me anything about his experience, skills, or projects!",
+    en: "Hi! I'm León's AI assistant. Ask me anything about him!",
     es: "¡Hola! Soy el asistente IA de León. ¡Pregúntame lo que quieras sobre su experiencia, habilidades o proyectos!",
   },
 
